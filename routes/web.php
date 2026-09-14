@@ -8,4 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/teszt', [TesztController::class, 'teszt']);
+Route::get('/names', [TesztController::class, 'names']);
 

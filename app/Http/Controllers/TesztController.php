@@ -7,7 +7,12 @@
             $names = ['Géza', 'Béla', 'Gizi', 'Pista', 'Ödön', 'Eufrézia'];
             $randomNameKey = array_rand($names);
             $randomName = $names[$randomNameKey];
-            return view('teszt', compact('randomName'));
+            return view('pages.teszt', compact('randomName'));
+        }
+
+        public function names() {
+            $names = ['Géza', 'Béla', 'Gizi', 'Pista', 'Ödön', 'Eufrézia'];
+            return view('pages.names', compact('names'));
         }
 
     }
