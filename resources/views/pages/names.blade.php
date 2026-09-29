@@ -2,14 +2,23 @@
 @section('title', '| Nevek')
 
 @section('content')
-    <div class="container">
-        <ul>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Azonosító</th>
+                <th></th>
+                <th>Név</th>
+                <th>Létrehozás</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach($names as $name)
-                <li @if($name == 'Géza') style="font-weight: bold;" @endif>
-                    @if($loop->last) Utolsó @endif
-                    {{ $name }}
-                </li>
+            <tr>
+                <td>{{ $name->id }}</td>
+                <td>{{ $name->name }}</td>
+                <td>{{ $name->created_at }}</td>
+</tr>
             @endforeach
-        </ul>
-    </div>
+        </tbody>
+    </table>
 @endsection
