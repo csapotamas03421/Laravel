@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
     use App\Models\Name;
     use App\Models\Family;
+    use Illuminate\Http\Request;
 
     class TesztController {
 
@@ -14,18 +15,9 @@
 
         public function names() {
             $names = Name::all(); 
-            // Name::find(1) 
-            // Name::where('name', 'Ubul')->get()
-            // Name::where('id', '>', 2)->get()
-
-            /*
-            $names = Name::where('name', '<>', 'Béla')
-                ->whereAnd('id', '>', 1)
-                ->orderBy('id', 'desc')
-                ->get()
-            */
-
-            return view('pages.names', compact('names'));
+            $families = Family::all();
+ 
+            return view('pages.names', compact('names', 'families'));
         }
 
         public function familyCreate($name) {
@@ -43,4 +35,39 @@
             return $nameRecord->id;
         }
 
+        public function deleteName(Request $request) {
+            $name = Name::find($request->input('id'));
+            $name->delete();
+
+            return "ok";
+        }
+
+        public function manageSurname() {
+            $names = Family::all();
+            return view('pages.surname', compact('names'));
+        }
+
+        public function deleteSurname(Request $request) {
+            $name = Family::find($request->input('id'));
+            $name->delete();
+
+            return "ok";
+        }
+
+        public function newSurname(Request $request) {
+            $familyRecord = new Family();
+            $familyRecord->surname = $request->input('inputFamily');
+            $familyRecord->save();
+
+            return redirect('/names/manage/surname');
+        }
+
+        public function newName(Request $request) {
+            $name = new Name();
+            $name->family_id = $request->input('inputFamily');
+            $name->name = $request->input('inputName');
+            $name->save();
+
+            return redirect('/names');
+        }
     }
