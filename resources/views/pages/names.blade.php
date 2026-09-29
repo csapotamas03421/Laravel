@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th>Azonosító</th>
-                <th></th>
+                <th>Családnév</th>
                 <th>Név</th>
                 <th>Létrehozás</th>
             </tr>
@@ -15,6 +15,13 @@
             @foreach($names as $name)
             <tr>
                 <td>{{ $name->id }}</td>
+                @empty($name->family)
+                    <td>
+                        <strong>Nincs adat.</strong>
+                    </td>
+                @else
+                    <td>{{ $name->family->surname }}</td>
+                @endempty
                 <td>{{ $name->name }}</td>
                 <td>{{ $name->created_at }}</td>
 </tr>
