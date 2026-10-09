@@ -3,6 +3,8 @@
     use App\Models\Name;
     use App\Models\Family;
     use Illuminate\Http\Request;
+    use Illuminate\Database\QueryException;
+    use Exception;
 
     class TesztController {
 
@@ -48,10 +50,17 @@
         }
 
         public function deleteSurname(Request $request) {
-            $name = Family::find($request->input('id'));
-            $name->delete();
-
-            return "ok";
+            try {
+                $name = Family::find($request->input('id'));
+                $name->delete();
+                return reaponse()->json(['success' => true]);
+            }
+            catch (QueryException $e) {
+                return response()->json(['success' => false, 'message' => 'Adatbázis hiba! A családnév biztos nincs használatban?']);
+            }
+            catch (Exception $e) {
+                return response()->json(['success' => false, 'message' => 'Ismeretlen hiba történt!']);
+            }
         }
 
         public function newSurname(Request $request) {

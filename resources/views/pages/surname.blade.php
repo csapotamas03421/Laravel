@@ -57,8 +57,13 @@
                 _token: '{{ csrf_token() }}',
                 id: id 
             },
-            success: function() {
-                thisBtn.closest('tr').fadeOut();
+            success: function(data) {
+                if (data.success == true) {
+                    thisBtn.closest('tr').fadeOut();
+                } else {
+                    alert("Hiba történt a törléskor!\nRészletek: " + data.message);
+                }
+                
             },
             error: function() {
                 alert('Nem sikerült a törlés!');
