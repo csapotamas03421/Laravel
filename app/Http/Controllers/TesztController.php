@@ -55,6 +55,10 @@
         }
 
         public function newSurname(Request $request) {
+            $validateData = $request->validate([
+                'inputFamily' => 'required|alpha|min:2|max:20'
+            ]);
+
             $familyRecord = new Family();
             $familyRecord->surname = $request->input('inputFamily');
             $familyRecord->save();
@@ -63,6 +67,11 @@
         }
 
         public function newName(Request $request) {
+            $validateData = $request->validate([
+                'inputFamily' => 'required|integer|exists:App\Models\Family.id',
+                'inputName' => 'required|alpha|min:2|max:20'
+            ]);
+
             $name = new Name();
             $name->family_id = $request->input('inputFamily');
             $name->name = $request->input('inputName');

@@ -26,11 +26,20 @@
     </table>
 
     <h3 class="mt-3">Új családnév hozzáadása</h3>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form method="post" action="/names/manage/surname/new">
         @csrf 
         <div class="form-group">
             <label for="inputFamily">Családnév</label>
-            <input type="text" name="inputFamily" id="inputFamily" class="form-control">
+            <input type="text" name="inputFamily" id="inputFamily" class="form-control" value="{{ old('inputFamily') }}" minlength="2" maxlength="20" required>
         </div>
         <button type="submit" class="btn btn-primary">Hozzáadás</button>
     </form>
