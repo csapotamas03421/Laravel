@@ -68,7 +68,7 @@
 
         public function newName(Request $request) {
             $validateData = $request->validate([
-                'inputFamily' => 'required|integer|exists:App\Models\Family.id',
+                'inputFamily' => 'required|integer|exists:App\Models\Family,id',
                 'inputName' => 'required|alpha|min:2|max:20'
             ]);
 
